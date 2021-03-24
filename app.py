@@ -35,11 +35,12 @@ def get_image(hash):
     base_path = '/home/fs_files/'
     drive, filename = hash.split(':')
     file_path = os.path.join(base_path, drive, hash)
-    buffer =None
     with open(file_path, 'rb') as image_file:
-        buffer = byte_to_buffer(image_file)
+        img = image_file
     # return Response(f'Drive: {drive} File: {filename} File Path: {os.path.join(base_path, drive, hash)}')
-    return Response(buffer.getvalue(), mimetype='image/jpeg')
+    return send_file(io.BytesIO(img.read()),
+                     attachment_filename=hash+'.jpg',
+                     mimetype='image/jpeg')
 
 
 if __name__ == '__main__':
