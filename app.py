@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 
 def byte_to_buffer(image):
-    img = Image.open(image)
+    img = Image.open(io.BytesIO(image))
     buffer = io.BytesIO()
     img.save(buffer, format="JPEG")
     return buffer
