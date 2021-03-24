@@ -23,7 +23,7 @@ def get_image(hash_url):
     with open(file_path, 'rb') as image_file:
         img = io.BytesIO(image_file.read())
     return send_file(img,
-                     attachment_filename=hash + '.jpg',
+                     attachment_filename=str(hash_url + '.jpg'),
                      mimetype='image/jpeg')
 
 
