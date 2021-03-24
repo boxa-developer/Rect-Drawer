@@ -10,10 +10,10 @@ import os
 app = Flask(__name__)
 
 
-def byteio_to_image(data):
-    img = Image.open(BytesIO(base64.b64decode(data)))
+def byte_to_buffer(image):
+    img = Image.open(image)
     buffer = io.BytesIO()
-    img.save(buffer, format="PNG")
+    img.save(buffer, format="JPEG")
     return buffer
 
 
@@ -34,8 +34,12 @@ def index():
 def get_image(hash):
     base_path = '/home/fs_files/'
     drive, filename = hash.split(':')
-    return Response(f'Drive: {drive} File: {filename} File Path: {os.path.join(base_path, drive, hash)}')
-    # return Response(, mimetype='image/jpeg')
+    file_path = os.path.join(base_path, drive, hash)
+    buffer =None
+    with open(file_path, 'rb') as image_file:
+        buffer = byte_to_buffer(image_file)
+    # return Response(f'Drive: {drive} File: {filename} File Path: {os.path.join(base_path, drive, hash)}')
+    return Response(buffer.getvalue(), mimetype='image/jpeg')
 
 
 if __name__ == '__main__':
