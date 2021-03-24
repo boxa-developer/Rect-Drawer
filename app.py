@@ -34,7 +34,7 @@ def index():
 def get_image(hash):
     base_path = '/home/fs_files/'
     drive, filename = hash.split(':')
-    return Response(f'Drive: {drive} File: {filename} File Path: {os.path.join(base_path, drive, filename)}')
+    return Response(f'Drive: {drive} File: {filename} File Path: {os.path.join(base_path, drive, hash)}')
     # return Response(, mimetype='image/jpeg')
 
 
