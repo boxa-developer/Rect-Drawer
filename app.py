@@ -7,6 +7,7 @@ from PIL import Image, ImageDraw
 from io import BytesIO
 import os
 import json
+import operations
 
 app = Flask(__name__)
 
@@ -29,10 +30,11 @@ def get_image(hash_url, actions):
     base_path = '/home/fs_files/'
     # drive, filename = hash_url.split(':')
     file_path = os.path.join(base_path, 'd0', hash_url)
-    acts = []
+    actions = ""
     for text in actions.split(':'):
-        acts.append(json.loads(decode_action(text)))
-    # return Response('Done')
+        actions += json.loads(decode_action(text))[0]+'_'
+    print(actions)
+    # return Response(actions)
     with open(file_path, 'rb') as image_file:
         img = io.BytesIO(image_file.read())
     return send_file(img,
