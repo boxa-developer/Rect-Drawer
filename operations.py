@@ -14,7 +14,7 @@ def draw(*arguments):
 def crop(*arguments):
     img = arguments[0]
     points = arguments[1][0]
-    img = img.crop(0,0, 600, 600)
+    img = img.crop((0,0, 600, 600))
     return img
 
 
