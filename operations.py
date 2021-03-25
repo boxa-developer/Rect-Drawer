@@ -3,6 +3,8 @@ def draw(*arguments):
     color = arguments[1][0]
     width = arguments[1][1]
     points = arguments[1][2]
+    dr = ImageDraw.Draw(img)
+    dr.line((100, 200, 150, 300), fill=128)
     return img
 
 
