@@ -1,3 +1,6 @@
+from PIL import Image, ImageDraw
+
+
 def draw(*arguments):
     img = arguments[0]
     color = arguments[1][0]
@@ -36,5 +39,5 @@ def action_producer(**kwargs):
     elif kwargs.get('action') == 'abs':
         image = resize_abs(image, args)
     elif kwargs.get('action') == 'scale':
-        image = resize_scale(image,args)
+        image = resize_scale(image, args)
     return image
