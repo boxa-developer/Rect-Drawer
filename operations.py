@@ -21,6 +21,7 @@ def crop(*arguments):
 def resize_abs(*arguments):
     img = arguments[0]
     width, height = arguments[1][0]
+    img.thumbnail((400, 500), Image.ANTIALIAS)
     return img
 
 
