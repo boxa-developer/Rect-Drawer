@@ -35,8 +35,6 @@ def get_image(hash_url, actions):
     # return Response('Done')
     with open(file_path, 'rb') as image_file:
         img = io.BytesIO(image_file.read())
-        draw = ImageDraw.Draw(img)
-        draw.line((0, 0) + im.size, fill=128)
     return send_file(img,
                      attachment_filename=str(hash_url + '.jpg'),
                      mimetype='image/jpeg')
