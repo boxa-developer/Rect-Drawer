@@ -28,6 +28,7 @@ def resize_scale(*arguments):
 
 def action_producer(**kwargs):
     image = kwargs.get('img')
+    args = kwargs.get('args')
     if kwargs.get('action') == 'draw':
         image = draw(image, args)
     elif kwargs.get('action') == 'crop':
