@@ -25,18 +25,31 @@ def decode_action(text):
     return text_string
 
 
+def pil2buffer(pil_img):
+    img_io = BytesIO()
+    pil_img.save(img_io, 'JPEG')
+    img_io.seek(0)
+    return img_io
+
+
 @app.route('/img/<hash_url>/<actions>', methods=['GET'])
 def get_image(hash_url, actions):
     base_path = '/home/fs_files/'
     # drive, filename = hash_url.split(':')
     file_path = os.path.join(base_path, 'd0', hash_url)
-    acts = ""
+    # with open(file_path, 'rb') as image_file:
+    #     img = io.BytesIO(image_file.read())
+    #     Image.frombuffer()
+    pill_img = Image.open(file_path)
     for text in actions.split(':'):
-        acts += json.loads(decode_action(text))[0]+'_'
-    print(acts)
-    # return Response(actions)
-    with open(file_path, 'rb') as image_file:
-        img = io.BytesIO(image_file.read())
+        img = operations.action_producer(
+            img=img,
+            action=json.loads(decode_action(text))[0],
+            args=json.loads(decode_action(text))[1:]
+        )
+
+    img = pil2buffer(pill_img)
+
     return send_file(img,
                      attachment_filename=str(hash_url + '.jpg'),
                      mimetype='image/jpeg')
