@@ -6,6 +6,7 @@ import io
 from PIL import Image
 from io import BytesIO
 import os
+import json
 
 app = Flask(__name__)
 
@@ -15,13 +16,27 @@ def index():
     return 'All OK, 200'
 
 
-@app.route('/img/<hash_url>', methods=['GET'])
-def get_image(hash_url):
+def decode_action(text):
+    base64_string = text
+    base64_bytes = base64_string.encode("utf-8")
+    text_bytes = base64.b64decode(base64_bytes)
+    text_string = text_bytes.decode("utf-8")
+    return text_string
+
+
+@app.route('/img/<hash_url>/<actions>', methods=['GET'])
+def get_image(hash_url, actions):
     base_path = '/home/fs_files/'
     drive, filename = hash_url.split(':')
     file_path = os.path.join(base_path, drive, hash_url)
+    acts = []
+    for text in actions.split(':'):
+        acts.append(json.loads(decode_action(text)))
+    # return Response('Done')
     with open(file_path, 'rb') as image_file:
         img = io.BytesIO(image_file.read())
+        draw = ImageDraw.Draw(img)
+        draw.line((0, 0) + im.size, fill=128)
     return send_file(img,
                      attachment_filename=str(hash_url + '.jpg'),
                      mimetype='image/jpeg')
