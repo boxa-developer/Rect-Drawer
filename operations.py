@@ -7,7 +7,7 @@ def draw(*arguments):
     width = arguments[1][1]
     points = arguments[1][2]
     dr = ImageDraw.Draw(img)
-    dr.line((100, 200, 150, 300), fill=128)
+    dr.line((100, 200, 150, 600), fill=128)
     return img
 
 
