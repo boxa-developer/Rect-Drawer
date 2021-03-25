@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageColor
 
 
 def draw(*arguments):
@@ -6,8 +6,11 @@ def draw(*arguments):
     color = arguments[1][0]
     width = arguments[1][1]
     points = arguments[1][2]
+    points_tuple = []
+    for point in points:
+        points_tuple += [point[0], point[1]]
     dr = ImageDraw.Draw(img)
-    dr.line((100, 200, 150, 600), fill=128)
+    dr.line(tuple(points_tuple), fill=ImageColor.getrgb(color), width=width)
     return img
 
 
