@@ -41,12 +41,12 @@ def get_image(hash_url, actions):
     #     img = io.BytesIO(image_file.read())
     #     Image.frombuffer()
     pill_img = Image.open(file_path)
-    for text in actions.split(':'):
-        img = operations.action_producer(
-            img=img,
-            action=json.loads(decode_action(text))[0],
-            args=json.loads(decode_action(text))[1:]
-        )
+    # for text in actions.split(':'):
+    #     img = operations.action_producer(
+    #         img=img,
+    #         action=json.loads(decode_action(text))[0],
+    #         args=json.loads(decode_action(text))[1:]
+    #     )
 
     img = pil2buffer(pill_img)
 
