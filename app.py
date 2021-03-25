@@ -27,8 +27,8 @@ def decode_action(text):
 @app.route('/img/<hash_url>/<actions>', methods=['GET'])
 def get_image(hash_url, actions):
     base_path = '/home/fs_files/'
-    drive, filename = hash_url.split(':')
-    file_path = os.path.join(base_path, drive, hash_url)
+    # drive, filename = hash_url.split(':')
+    file_path = os.path.join(base_path, 'd0', hash_url)
     acts = []
     for text in actions.split(':'):
         acts.append(json.loads(decode_action(text)))
