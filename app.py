@@ -3,7 +3,7 @@ from flask import request
 from flask import Flask, Response, redirect
 import base64
 import io
-from PIL import Image
+from PIL import Image, ImageDraw
 from io import BytesIO
 import os
 import json
