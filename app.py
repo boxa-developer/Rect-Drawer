@@ -37,17 +37,20 @@ def get_image(hash_url, actions):
     base_path = '/home/fs_files/'
     # drive, filename = hash_url.split(':')
     file_path = os.path.join(base_path, 'd0', hash_url)
-    pill_img = Image.open(file_path)
-    for text in actions.split(':'):
-        pill_img = operations.action_producer(
-            img=pill_img,
-            action=json.loads(decode_action(text))[0],
-            args=json.loads(decode_action(text))[1:]
-        )
-    img = pil2buffer(pill_img)
-    return send_file(img,
-                     attachment_filename=str(hash_url + '.jpg'),
-                     mimetype='image/jpeg')
+    try:
+        pill_img = Image.open(file_path)
+        for text in actions.split(':'):
+            pill_img = operations.action_producer(
+                img=pill_img,
+                action=json.loads(decode_action(text))[0],
+                args=json.loads(decode_action(text))[1:]
+            )
+        img = pil2buffer(pill_img)
+        return send_file(img,
+                         attachment_filename=str(hash_url + '.jpg'),
+                         mimetype='image/jpeg')
+    except Exception as e:
+        return Response(f'Cannot Open Image  with error {e}')
 
 
 if __name__ == '__main__':
