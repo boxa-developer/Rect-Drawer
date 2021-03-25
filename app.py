@@ -50,7 +50,7 @@ def get_image(hash_url, actions):
                          attachment_filename=str(hash_url + '.jpg'),
                          mimetype='image/jpeg')
     except Exception as e:
-        return Response(f'<h1>Cannot Open Image  with error {e}</h1>')
+        return Response(f'<h3 style="color: red">Cannot Open Image  with error {e}</h3>')
 
 
 if __name__ == '__main__':
