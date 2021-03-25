@@ -30,10 +30,10 @@ def get_image(hash_url, actions):
     base_path = '/home/fs_files/'
     # drive, filename = hash_url.split(':')
     file_path = os.path.join(base_path, 'd0', hash_url)
-    actions = ""
+    acts = ""
     for text in actions.split(':'):
-        actions += json.loads(decode_action(text))[0]+'_'
-    print(actions)
+        acts += json.loads(decode_action(text))[0]+'_'
+    print(acts)
     # return Response(actions)
     with open(file_path, 'rb') as image_file:
         img = io.BytesIO(image_file.read())
