@@ -32,6 +32,12 @@ def pil2buffer(pil_img):
     return img_io
 
 
+from flask import make_response, send_file
+
+resp = make_response(send_file(mp3_filepath))
+response.headers['X-Something'] = 'header value goes here'
+
+
 @app.route('/img/<hash_url>/<actions>', methods=['GET'])
 def get_image(hash_url, actions):
     base_path = '/home/fs_files/'
@@ -46,9 +52,10 @@ def get_image(hash_url, actions):
                 args=json.loads(decode_action(text))[1:]
             )
         img = pil2buffer(pill_img)
-        return send_file(img,
-                         attachment_filename=str(hash_url + '.jpg'),
-                         mimetype='image/jpeg')
+        resp = make_response(send_file(img,
+                                       attachment_filename=str(hash_url + '.jpg'),
+                                       mimetype='image/jpeg'))
+        resp.headers['Content-Disposition'] = f'inline;filename="{hash_url}.jpg"'
     except Exception as e:
         return Response(f'<h3 style="color: red">Cannot Open Image  with error {e}</h3>')
 

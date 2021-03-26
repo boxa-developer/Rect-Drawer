@@ -17,20 +17,25 @@ def draw(*arguments):
 def crop(*arguments):
     img = arguments[0]
     points = arguments[1][0]
-    img = img.crop((0,0, 600, 600))
+    points_tuple = []
+    for point in points:
+        points_tuple += [point[0], point[1]]
+    img = img.crop(tuple(points_tuple))
     return img
 
 
 def resize_abs(*arguments):
     img = arguments[0]
-    # width, height = arguments[1][0]
-    img.resize((400, 500), Image.ANTIALIAS)
+    width, height = arguments[1][0]
+    img.resize((width, height), Image.ANTIALIAS)
     return img
 
 
 def resize_scale(*arguments):
     img = arguments[0]
     scale = arguments[1][0]
+    width, height = img.size
+    
     return img
 
 
