@@ -11,13 +11,6 @@ import os
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    return Response(f'<h1 style="color:#ba3939;background:#ffe0e0; '
-                        f'border:1px solid  #a33a3a;padding:2px'
-                        f'">Error: [ All OK, 200 ]</h1>')
-
-
 @app.route('/img/<hash_url>/<actions>', methods=['GET'])
 def get_image(hash_url, actions):
     base_path = '/home/fs_files/'
