@@ -42,11 +42,12 @@ def get_image(hash_url, actions):
     try:
         pill_img = Image.open(file_path)
         for text in actions.split(':'):
-            pill_img = operations.action_producer(
-                img=pill_img,
-                action=json.loads(decode_action(text))[0],
-                args=json.loads(decode_action(text))[1:]
-            )
+            if text != '':
+                pill_img = operations.action_producer(
+                    img=pill_img,
+                    action=json.loads(decode_action(text))[0],
+                    args=json.loads(decode_action(text))[1:]
+                )
         img = pil2buffer(pill_img)
         resp = make_response(send_file(img,
                                        attachment_filename=str(filename + '.jpg'),
