@@ -52,6 +52,7 @@ def get_image(hash_url, actions):
                                        attachment_filename=str(hash_url + '.jpg'),
                                        mimetype='image/jpeg'))
         resp.headers['Content-Disposition'] = f'inline;filename="{hash_url}.jpg"'
+        return resp
     except Exception as e:
         return Response(f'<h3 style="color: red">Cannot Open Image  with error {e}</h3>')
 
