@@ -1,5 +1,6 @@
 from flask import send_file
 from flask import request
+from flask import make_response
 from flask import Flask, Response, redirect
 import base64
 import io
@@ -31,11 +32,6 @@ def pil2buffer(pil_img):
     img_io.seek(0)
     return img_io
 
-
-from flask import make_response, send_file
-
-resp = make_response(send_file(mp3_filepath))
-response.headers['X-Something'] = 'header value goes here'
 
 
 @app.route('/img/<hash_url>/<actions>', methods=['GET'])
