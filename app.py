@@ -33,7 +33,6 @@ def pil2buffer(pil_img):
     return img_io
 
 
-
 @app.route('/img/<hash_url>/<actions>', methods=['GET'])
 def get_image(hash_url, actions):
     base_path = '/home/fs_files/'
@@ -55,7 +54,8 @@ def get_image(hash_url, actions):
         resp.headers['Content-Disposition'] = f'inline;filename="{filename}.jpg"'
         return resp
     except Exception as e:
-        return Response(f'<h3 style="color: red">Cannot Open Image  with error {e}</h3>')
+        return Response(f'<h3 style="color: #ba3939;background:  #ffe0e0; border: 1px solid  #a33a3a;'
+                        f'">Error: [ {e} ]</h3>')
 
 
 if __name__ == '__main__':
