@@ -45,7 +45,7 @@ def crop(*arguments):
 def resize_abs(*arguments):
     img = arguments[0]
     width, height = arguments[1][0]
-    img.resize((width, height), Image.ANTIALIAS)
+    img = img.resize((width, height), Image.ANTIALIAS)
     return img
 
 
@@ -54,7 +54,7 @@ def resize_scale(*arguments):
     scale = arguments[1][0]
     width, height = img.size
     print(img.size)
-    img.resize((int(width*scale), int(height*scale)), Image.ANTIALIAS)
+    img = img.resize((int(width*scale), int(height*scale)), Image.ANTIALIAS)
     print(int(width*scale), int(height*scale), scale)
     return img
 
