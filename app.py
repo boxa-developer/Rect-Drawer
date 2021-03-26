@@ -1,5 +1,7 @@
 from flask import (
-    Flask, Response, make_response, send_file
+    Flask, Response,
+    make_response,
+    send_file
 )
 from PIL import Image
 import utils
@@ -11,7 +13,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'All OK, 200'
+    return Response(f'<h1 style="color:#ba3939;background:#ffe0e0; '
+                        f'border:1px solid  #a33a3a;padding:2px'
+                        f'">Error: [ All OK, 200 ]</h1>')
 
 
 @app.route('/img/<hash_url>/<actions>', methods=['GET'])
