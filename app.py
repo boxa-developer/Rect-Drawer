@@ -54,7 +54,7 @@ def get_image(hash_url, actions):
         resp.headers['Content-Disposition'] = f'inline;filename="{filename}.jpg"'
         return resp
     except Exception as e:
-        return Response(f'<h3 style="color: #ba3939;background:  #ffe0e0; border: 1px solid  #a33a3a;'
+        return Response(f'<h3 style="color:#ba3939;background:#ffe0e0; border:1px solid  #a33a3a;padding:2px'
                         f'">Error: [ {e} ]</h3>')
 
 
