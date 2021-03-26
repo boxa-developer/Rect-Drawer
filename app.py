@@ -37,8 +37,8 @@ def pil2buffer(pil_img):
 @app.route('/img/<hash_url>/<actions>', methods=['GET'])
 def get_image(hash_url, actions):
     base_path = '/home/fs_files/'
-    # drive, filename = hash_url.split(':')
-    file_path = os.path.join(base_path, 'd0', hash_url)
+    drive, filename = hash_url.split(':')
+    file_path = os.path.join(base_path, drive, filename)
     try:
         pill_img = Image.open(file_path)
         for text in actions.split(':'):
@@ -49,9 +49,9 @@ def get_image(hash_url, actions):
             )
         img = pil2buffer(pill_img)
         resp = make_response(send_file(img,
-                                       attachment_filename=str(hash_url + '.jpg'),
+                                       attachment_filename=str(filename + '.jpg'),
                                        mimetype='image/jpeg'))
-        resp.headers['Content-Disposition'] = f'inline;filename="{hash_url}.jpg"'
+        resp.headers['Content-Disposition'] = f'inline;filename="{filename}.jpg"'
         return resp
     except Exception as e:
         return Response(f'<h3 style="color: red">Cannot Open Image  with error {e}</h3>')
