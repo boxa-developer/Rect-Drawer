@@ -1,14 +1,10 @@
-from flask import send_file
-from flask import request
-from flask import make_response
-from flask import Flask, Response, redirect
-import base64
-import io
-from PIL import Image, ImageDraw
-from io import BytesIO
-import os
+from flask import (
+    Flask, Response, make_response, send_file
+)
+from PIL import Image
+import utils
 import json
-import operations
+import os
 
 app = Flask(__name__)
 
@@ -16,21 +12,6 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return 'All OK, 200'
-
-
-def decode_action(text):
-    base64_string = text
-    base64_bytes = base64_string.encode("utf-8")
-    text_bytes = base64.b64decode(base64_bytes)
-    text_string = text_bytes.decode("utf-8")
-    return text_string
-
-
-def pil2buffer(pil_img):
-    img_io = BytesIO()
-    pil_img.save(img_io, 'JPEG')
-    img_io.seek(0)
-    return img_io
 
 
 @app.route('/img/<hash_url>/<actions>', methods=['GET'])
@@ -42,19 +23,20 @@ def get_image(hash_url, actions):
         pill_img = Image.open(file_path)
         for text in actions.split(':'):
             if text != '':
-                pill_img = operations.action_producer(
+                pill_img = utils.action_producer(
                     img=pill_img,
-                    action=json.loads(decode_action(text))[0],
-                    args=json.loads(decode_action(text))[1:]
+                    action=json.loads(utils.decode_action(text))[0],
+                    args=json.loads(utils.decode_action(text))[1:]
                 )
-        img = pil2buffer(pill_img)
+        img = utils.pil2buffer(pill_img)
         resp = make_response(send_file(img,
                                        attachment_filename=str(filename + '.jpg'),
                                        mimetype='image/jpeg'))
         resp.headers['Content-Disposition'] = f'inline;filename="{filename}.jpg"'
         return resp
     except Exception as e:
-        return Response(f'<h3 style="color:#ba3939;background:#ffe0e0; border:1px solid  #a33a3a;padding:2px'
+        return Response(f'<h3 style="color:#ba3939;background:#ffe0e0; '
+                        f'border:1px solid  #a33a3a;padding:2px'
                         f'">Error: [ {e} ]</h3>')
 
 
