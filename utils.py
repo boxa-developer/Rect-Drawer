@@ -55,7 +55,7 @@ def resize_scale(*arguments):
     width, height = img.size
     print(img.size)
     img.resize((int(width*scale), int(height*scale)), Image.ANTIALIAS)
-    print(img.size)
+    print(img.size, scale)
     return img
 
 
