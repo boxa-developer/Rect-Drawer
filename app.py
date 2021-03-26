@@ -18,8 +18,10 @@ def get_image(hash_url, actions):
     file_path = os.path.join(base_path, drive, filename)
     try:
         pill_img = Image.open(file_path)
+        acts = ''
         for text in actions.split(':'):
             if text != '':
+                acts += text+'-'
                 pill_img = utils.action_producer(
                     img=pill_img,
                     action=json.loads(utils.decode_action(text))[0],
@@ -30,6 +32,7 @@ def get_image(hash_url, actions):
                                        attachment_filename=str(filename + '.jpg'),
                                        mimetype='image/jpeg'))
         resp.headers['Content-Disposition'] = f'inline;filename="{filename}.jpg"'
+        resp.headers['action_type'] = acts
         return resp
     except Exception as e:
         return Response(f'<h3 style="color:#ba3939;background:#ffe0e0; '
