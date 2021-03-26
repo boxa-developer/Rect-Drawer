@@ -21,10 +21,11 @@ def get_image(hash_url, actions):
         acts = ''
         for text in actions.split(':'):
             if text != '':
-                acts += text+'-'
+                action = json.loads(utils.decode_action(text))[0]
+                acts += action+'-'
                 pill_img = utils.action_producer(
                     img=pill_img,
-                    action=json.loads(utils.decode_action(text))[0],
+                    action=action,
                     args=json.loads(utils.decode_action(text))[1:]
                 )
         img = utils.pil2buffer(pill_img)
